@@ -15,7 +15,7 @@ class ProductImagesResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'preview_url' => $this->getUrl(),
+            'preview_url' => $this->getUrl('preview'),
             'original_url' => $this->getFullUrl(),
         ];
     }
