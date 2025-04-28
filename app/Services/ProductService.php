@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
+use App\Exceptions\ProductException;
 use App\Models\Product;
-use Illuminate\Http\Request;
 
 class ProductService
 {
@@ -27,31 +27,62 @@ class ProductService
         return $query->paginate($paginate);
     }
 
-    public function getProduct(Product $product): Product
+    public function getProduct($id)
     {
+        $product = Product::find($id);
+
+        if (!$product)
+            throw new ProductException('Product not found', 404);
+
         return $product;
     }
 
-    public function createProduct($data): Product
+    public function createProduct($data)
     {
-        return Product::create($data);
-    }
+        $product = Product::create($data);
 
-    public function updateProduct(Product $product, $data): Product
-    {
-        $product->update($data);
+        if (!$product)
+            throw new ProductException('Product not created', 500);
+
         return $product;
     }
 
-    public function updateProductStatus(Product $product, string $status): Product
+    public function updateProduct($id, $data)
     {
-        $product->update(['status' => $status]);
+        $product = Product::find($id);
+        if (!$product)
+            throw new ProductException('Product not found', 404);
+
+        $updateProduct = $product->update($data);
+        if (!$updateProduct)
+            throw new ProductException('Product not updated', 500);
+
         return $product;
     }
 
-    public function deleteProduct(Product $product): Product
+    public function updateProductStatus($id, string $status)
     {
-        $product->delete();
+        $product = Product::find($id);
+        if (!$product)
+            throw new ProductException('Product not found', 404);
+
+        $statusUpdated = $product->update(['status' => $status]);
+        if (!$statusUpdated)
+            throw new ProductException('Product not updated', 500);
+
+        return $product;
+    }
+
+    public function deleteProduct($id)
+    {
+        $product = Product::find($id);
+        if (!$product)
+            throw new ProductException('Product not found', 404);
+
+        $productDeleted = $product->delete();
+        if (!$productDeleted)
+            throw new ProductException('Product not deleted', 500);
+
         return $product;
     }
 }

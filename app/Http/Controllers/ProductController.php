@@ -30,29 +30,29 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product, ProductService $productService)
+    public function show($id, ProductService $productService)
     {
-        return $productService->getProduct($product)->toResource();
+        return $productService->getProduct($id)->toResource();
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(ProductRequest $request, Product $product, ProductService $productService)
+    public function update(ProductRequest $request, $id, ProductService $productService)
     {
-        return $productService->updateProduct($product, $request->validated())->toResource();
+        return $productService->updateProduct($id, $request->validated())->toResource();
     }
 
-    public function updateStatus(UpdateStatusRequest $request, Product $product, ProductService $productService)
+    public function updateStatus(UpdateStatusRequest $request, $id, ProductService $productService)
     {
-        return $productService->updateProductStatus($product, $request->status)->toResource();
+        return $productService->updateProductStatus($id, $request->status)->toResource();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product, ProductService $productService)
+    public function destroy($id, ProductService $productService)
     {
-        return $productService->deleteProduct($product)->toResource();
+        return $productService->deleteProduct($id)->toResource();
     }
 }
