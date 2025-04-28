@@ -32,7 +32,7 @@ class ProductService
         $product = Product::find($id);
 
         if (!$product)
-            throw new ProductException('Product not found', 404);
+            throw new ProductException('Product was not found', 404);
 
         return $product;
     }
@@ -42,7 +42,7 @@ class ProductService
         $product = Product::create($data);
 
         if (!$product)
-            throw new ProductException('Product not created', 500);
+            throw new ProductException('Product was not created', 500);
 
         return $product;
     }
@@ -51,11 +51,11 @@ class ProductService
     {
         $product = Product::find($id);
         if (!$product)
-            throw new ProductException('Product not found', 404);
+            throw new ProductException('Product was not found', 404);
 
         $updateProduct = $product->update($data);
         if (!$updateProduct)
-            throw new ProductException('Product not updated', 500);
+            throw new ProductException('Product was not updated', 500);
 
         return $product;
     }
@@ -64,11 +64,11 @@ class ProductService
     {
         $product = Product::find($id);
         if (!$product)
-            throw new ProductException('Product not found', 404);
+            throw new ProductException('Product was not found', 404);
 
         $statusUpdated = $product->update(['status' => $status]);
         if (!$statusUpdated)
-            throw new ProductException('Product not updated', 500);
+            throw new ProductException('Product status was not updated', 500);
 
         return $product;
     }
@@ -77,11 +77,11 @@ class ProductService
     {
         $product = Product::find($id);
         if (!$product)
-            throw new ProductException('Product not found', 404);
+            throw new ProductException('Product was not found', 404);
 
         $productDeleted = $product->delete();
         if (!$productDeleted)
-            throw new ProductException('Product not deleted', 500);
+            throw new ProductException('Product was not deleted', 500);
 
         return $product;
     }
