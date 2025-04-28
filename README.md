@@ -24,5 +24,5 @@ php artisan db:seed
 php artisan serve
 ```
 
-### Use the postman collection that i sent you on gmail to test the api
+Use the postman collection that i sent you on gmail to test the api
 
