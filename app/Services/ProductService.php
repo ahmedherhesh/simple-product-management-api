@@ -15,7 +15,7 @@ class ProductService
         $query = Product::latest();
 
         $filters = [
-            'name'      => fn($q, $value) => $q->whereLike('name', $value),
+            'name'      => fn($q, $value) => $q->where('name', 'LIKE', "%{$value}%"),
             'status'    => fn($q, $value) => $q->whereStatus($value),
             'min_price' => fn($q, $value) => $q->where('price', '>=', $value),
             'max_price' => fn($q, $value) => $q->where('price', '<=', $value),
