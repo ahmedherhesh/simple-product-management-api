@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductFilterRequest;
 use App\Http\Requests\ProductRequest;
+use App\Http\Requests\UpdateProductImagesRequest;
 use App\Http\Requests\UpdateStatusRequest;
 use App\Models\Product;
 use App\Services\ProductService;
@@ -48,6 +49,11 @@ class ProductController extends Controller
         return $productService->updateProductStatus($id, $request->status)->toResource();
     }
 
+    public function updateImages(UpdateProductImagesRequest $request, $id, ProductService $productService)
+    {
+        $product = $productService->getProduct($id);
+        return $productService->appendProductImages($product, $request->images)->toResource();
+    }
     /**
      * Remove the specified resource from storage.
      */

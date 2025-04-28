@@ -10,3 +10,4 @@ Route::get('/user', function (Request $request) {
 
 Route::apiResource('products', ProductController::class);
 Route::patch('products/{product}/status', [ProductController::class, 'updateStatus']);
+Route::post('products/{product}/update-images', [ProductController::class, 'updateImages']);

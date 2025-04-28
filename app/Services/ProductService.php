@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Exceptions\ProductException;
 use App\Models\Product;
+use Exception;
 
 class ProductService
 {
@@ -11,7 +12,7 @@ class ProductService
     {
         $request = request();
 
-        $query = Product::query();
+        $query = Product::latest();
 
         $filters = [
             'name'      => fn($q, $value) => $q->whereLike('name', $value),
@@ -27,7 +28,7 @@ class ProductService
         return $query->paginate($paginate);
     }
 
-    public function getProduct($id)
+    public function getProduct($id): Product | Exception
     {
         $product = Product::find($id);
 
@@ -37,7 +38,7 @@ class ProductService
         return $product;
     }
 
-    public function createProduct($data)
+    public function createProduct($data): Product | Exception
     {
         $product = Product::create($data);
 
@@ -47,7 +48,7 @@ class ProductService
         return $product;
     }
 
-    public function updateProduct($id, $data)
+    public function updateProduct($id, $data): Product | Exception
     {
         $product = Product::find($id);
         if (!$product)
@@ -60,7 +61,7 @@ class ProductService
         return $product;
     }
 
-    public function updateProductStatus($id, string $status)
+    public function updateProductStatus($id, string $status): Product | Exception
     {
         $product = Product::find($id);
         if (!$product)
@@ -73,7 +74,23 @@ class ProductService
         return $product;
     }
 
-    public function deleteProduct($id)
+    public function appendProductImages(Product $product, array $requestImages): Product | Exception
+    {
+        $appendedImages = [];
+        if ($requestImages && count($requestImages) > 0) {
+            foreach ($requestImages as $image) {
+                $image_name =  rand(1000, 9999) . time() . '.' . $image->extension();
+                $image->move(public_path("uploads/product-images"), $image_name);
+                $product->addMedia(public_path("uploads/product-images/$image_name"))->toMediaCollection('product-images');
+                $appendedImages[] = $image_name;
+            }
+        }
+        if (!$appendedImages)
+            throw new ProductException('The product image does not saved', 500);
+        return $product;
+    }
+
+    public function deleteProduct($id): Product | Exception
     {
         $product = Product::find($id);
         if (!$product)
