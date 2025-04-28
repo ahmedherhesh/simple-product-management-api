@@ -17,7 +17,8 @@ return new class extends Migration
             $table->longText('description');
             $table->double('price')->default(0);
             $table->double('quantity')->default(0);
-            $table->enum('status', ['active', 'inactive']);
+            $table->enum('status', ['active', 'inactive'])->default('inactive');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
