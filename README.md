@@ -1,21 +1,18 @@
-<!-- write the readme for run the project -->
 
-# README.md
+## To run the project follow these steps below
 
-# To run the project follow these steps below
-
-# Use this command to install the dependencies of the project
+### Use this command to install the dependencies of the project
 
 ```bash
 composer install
 ```
----------------------------------------------
+
+### Note
 ```bash
 create the database that called "simple_product_management_api"
 ```
----------------------------------------------
 
-# Use these commands to run the project
+### Use these commands to run the project
 
 ```bash
 php artisan serve
@@ -29,5 +26,5 @@ php artisan migrate
 php artisan db:seed
 ```
 
-## Use the postman collection that i sent you on gmail to test the api
+### Use the postman collection that i sent you on gmail to test the api
 
