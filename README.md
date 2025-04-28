@@ -8,9 +8,7 @@ composer install
 ```
 
 ### Note
-```bash
 create the database that called "simple_product_management_api"
-```
 
 ### Use these commands to run the project
 
