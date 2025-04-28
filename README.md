@@ -13,15 +13,15 @@ create the database that called "simple_product_management_api"
 ### Use these commands to run the project
 
 ```bash
-php artisan serve
-```
-
-```bash
 php artisan migrate
 ```
 
 ```bash
 php artisan db:seed
+```
+
+```bash
+php artisan serve
 ```
 
 ### Use the postman collection that i sent you on gmail to test the api
